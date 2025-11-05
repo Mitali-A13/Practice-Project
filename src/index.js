@@ -9,7 +9,16 @@ dotenv.config({
 });
 
 
-dbConnect();
+//db connection code is async so we will use then catch here as it returns a promise
+dbConnect()
+.then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`Server is running on port ${process.env.PORT || 8000}`);
+    })
+})
+.catch((err) => {
+    console.error("Error connecting to the database", err);
+})
 
 
 
